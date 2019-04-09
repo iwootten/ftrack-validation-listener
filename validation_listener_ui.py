@@ -105,7 +105,7 @@ def validation_listener(event, session):
                                 'value': entity_item['entityType']
                             }
                         ],
-                        'title': "Please add a description to approved '{}'".format(entity['name'])
+                        'title': "Please add a description to '{}'".format(entity['name'])
                     },
                     target=(
                         'applicationId=ftrack.client.web and user.id={0}'.format(user_id)
