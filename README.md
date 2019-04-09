@@ -1,8 +1,5 @@
 FTrack Approval Status Listener
 ==============================================
-Ian Wootten
-Nifty Digits Ltd (hi@niftydigits.com)
-----------------------------------------------
 
 This ftrack plugin listens for when task/asset versions are updated to be approved and prompts for a description when 
 it is missing.
