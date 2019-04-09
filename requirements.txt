@@ -3,10 +3,9 @@ backports.functools-lru-cache==1.5
 certifi==2019.3.9
 chardet==3.0.4
 clique==1.5.0
-ftrack-action-handler==0.1.3
 ftrack-python-api==1.8.0
 idna==2.8
-pyparsing==2.3.1
+pyparsing==2.4.0
 python-dateutil==2.8.0
 requests==2.21.0
 six==1.12.0
