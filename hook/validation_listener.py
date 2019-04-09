@@ -115,10 +115,21 @@ def validation_listener(event, session):
                 session.event_hub.publish(event)
 
 
+def register(session, **kw):
+    '''Register plugin. Called when used as an plugin.'''
+    # Validate that session is an instance of ftrack_api.Session. If not,
+    # assume that register is being called from an old or incompatible API and
+    # return without doing anything.
+    if not isinstance(session, ftrack_api.session.Session):
+        return
+
+    session.event_hub.subscribe('topic=ftrack.update and source.applicationId=ftrack.client.web',
+                                lambda event: validation_listener(event, session))
+    session.event_hub.subscribe('topic=ftrack.action.launch and data.actionIdentifier=validate-description',
+                                lambda event: submit_handler(event, session))
+
+
 if __name__ == "__main__":
     ftrack_session = ftrack_api.Session(auto_connect_event_hub=True)
-    ftrack_session.event_hub.subscribe('topic=ftrack.update and source.applicationId=ftrack.client.web',
-                                       lambda event: validation_listener(event, ftrack_session))
-    ftrack_session.event_hub.subscribe('topic=ftrack.action.launch and data.actionIdentifier=validate-description',
-                                       lambda event: submit_handler(event, ftrack_session))
+    register(ftrack_session)
     ftrack_session.event_hub.wait()
