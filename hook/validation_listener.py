@@ -67,10 +67,12 @@ def validation_listener(event, session):
 
             entity = session.get(entity_type, entity_item['entityId'])
 
+            description = entity['description'] if entity_type == 'Task' else entity['task']['description']
+
             status_updated_no_description = 'changes' in entity_item and 'statusid' in entity_item['changes'] \
                                             and 'new' in entity_item['changes']['statusid'] \
                                             and entity_item['changes']['statusid']['new'] == approved_status_id \
-                                            and not entity['description']
+                                            and not description
 
             approved_and_description_removed = 'changes' in entity_item and 'description' in entity_item['changes'] \
                                                and 'new' in entity_item['changes']['description'] \
